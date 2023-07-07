@@ -62,12 +62,13 @@ def add_sidebar_content():
     st.markdown(
         '<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;} footer:after{visibility: visible; content: "Govt. Model Engineering College, Kochi"}</style>', unsafe_allow_html=True)
 
+
 def main():
     st.sidebar.title("Instructions and Details")
     add_sidebar_content()
 
     st.title("Text to Image Generation")
-    st.write("Web application hosted by Govt. Model Engineering College which uses technique of stable diffusion to generate high-quality images from descriptive textual prompts")
+    st.write("Web application that uses technique of [Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) to generate high-quality images from descriptive textual prompts. Hosted by [Govt. Model Engineering College](https://www.mec.ac.in/)")
 
     col1, col2 = st.columns([5, 1])
     with col1:
@@ -76,10 +77,10 @@ def main():
         batch_size = st.selectbox("Number of Images", [1, 2, 3, 4], index=1)
 
     if st.button("Generate Images"):
-        if not prompt:
-            prompt = "Little red riding hood. Ultra-realistic"
+        # if not prompt:
+        #     prompt = "Little red riding hood. Ultra-realistic"
         if prompt:
-            with st.spinner("Generating images..."):
+            with st.spinner(f"Generating {batch_size} images..."):
                 images = generate_images(prompt, batch_size)
                 st.success("Images generated successfully!")
 
