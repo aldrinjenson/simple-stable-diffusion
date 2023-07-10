@@ -8,7 +8,7 @@ import base64
 from PIL import Image
 import os
 from dotenv import load_dotenv
-import streamlit.components.v1 as components
+from utils import replace_streamlit_footer
 
 load_dotenv()
 
@@ -38,44 +38,7 @@ def add_sidebar_content():
     Made with ❤️ for MEC by [Aldrin Jenson](https://www.linkedin.com/in/aldrinjenson/)
     """
     )
-
-    st.markdown()
-
-    # st.markdown(
-    #     '<style>#MainMenu {visibility: hidden;} footer {visibility: hidden;} footer:after{visibility: visible; content: "Aldrin Jenson - CSB MEC 2019"}</style>', unsafe_allow_html=True)
-    # custom_js = """
-    # <script>
-    # document.addEventListener("DOMContentLoaded", function() {
-    #     // Select the footer element
-    #     var footer = document.querySelector("footer");
-    #     console.log(footer)
-
-    #     // Create a new anchor element
-    #     var anchor = document.createElement("a");
-    #     anchor.href = "https://www.example.com";
-
-    #     // Create a new span element
-    #     var span = document.createElement("span");
-    #     span.className = "content";
-    #     span.textContent = "Aldrin Jenson - CSB MEC'19 batch";
-
-    #     // Append the span element to the anchor element
-    #     anchor.appendChild(span);
-
-    #     // Remove existing content from the footer
-    #     footer.innerHTML = "";
-
-    #     // Append the anchor element to the footer
-    #     footer.appendChild(anchor);
-    # });
-    # </script>
-    # """
-    # components.html(custom_js)
-    # # Render the custom JavaScript using st.markdown()
-    # st.markdown(custom_js, unsafe_allow_html=True)
-
-
-
+    
 
 def generate_images(prompt, batch_size):
     url = os.getenv("API_URL")
@@ -122,9 +85,11 @@ def getDownloadHref (image):
 def main():
     st.sidebar.title("Instructions and Details")
     add_sidebar_content()
+    replace_streamlit_footer()
 
     st.title("SD - Text to Image Generation")
     st.write("Web application that uses the technique of [Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) to generate images from descriptive text prompts. Hosted by [Govt. Model Engineering College](https://www.mec.ac.in/).")
+    st.write("Click [here](/details) for instructions and more details.")
 
     col1, col2 = st.columns([5, 1])
     with col1:
