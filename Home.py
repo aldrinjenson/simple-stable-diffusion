@@ -8,7 +8,7 @@ import base64
 from PIL import Image
 import os
 from dotenv import load_dotenv
-from utils import replace_streamlit_footer
+from utils import streamlit_cleanup, getDownloadHref
 
 load_dotenv()
 
@@ -20,7 +20,7 @@ st.set_page_config(
 
 def add_sidebar_content():
     st.sidebar.markdown(
-    """
+        """
     ### Tips for Better Images:
     - Use descriptive prompts. Example: "Ship sailing through stormy seas with thunder and lightning. Realistic."
     - Provide maximum details and descriptions in the prompt for better image generation.
@@ -38,7 +38,7 @@ def add_sidebar_content():
     Made with ❤️ for MEC by [Aldrin Jenson](https://www.linkedin.com/in/aldrinjenson/)
     """
     )
-    
+
 
 def generate_images(prompt, batch_size):
     url = os.getenv("API_URL")
@@ -70,30 +70,24 @@ def generate_images(prompt, batch_size):
     return []
 
 
-def getDownloadHref (image):
-    image_bytes = io.BytesIO()
-    image.save(image_bytes, format='PNG')
-    image_bytes = image_bytes.getvalue()
-    encoded_image = base64.b64encode(image_bytes).decode("utf-8")
-
-    random_number = random.randint(1000, 9999)
-    filename = f"image{random_number}.png"
-    href = f'<a href="data:image/png;base64,{encoded_image}" download="{filename}" style="text-decoration: none; padding: 8px 16px; background-color: transparent; color: #eee; border: 1px solid #333; border-radius: 4px;">Save image ⬇</a>'
-    return href
-
-
 def main():
     st.sidebar.title("Instructions and Details")
+
     add_sidebar_content()
-    replace_streamlit_footer()
+    streamlit_cleanup()
 
     st.title("SD - Text to Image Generation")
-    st.write("Web application that uses the technique of [Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) to generate images from descriptive text prompts. Hosted by [Govt. Model Engineering College](https://www.mec.ac.in/).")
+    st.write(
+        "Web application that uses the technique of [Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) to generate images from descriptive text prompts. Hosted by [Govt. Model Engineering College](https://www.mec.ac.in/)."
+    )
     st.write("Click [here](/details) for instructions and more details.")
 
     col1, col2 = st.columns([5, 1])
     with col1:
-        prompt = st.text_input("Prompt",placeholder="Eg: A rainbow coloured hot air balloon floating up in to the bright sunny sky")
+        prompt = st.text_input(
+            "Prompt",
+            placeholder="Eg: A rainbow coloured hot air balloon floating up in to the bright sunny sky",
+        )
     with col2:
         batch_size = st.selectbox("Number of Images", [1, 2, 3, 4], index=1)
 
@@ -101,7 +95,9 @@ def main():
         if not prompt:
             prompt = "Little red riding hood. Ultra-realistic"
         if prompt:
-            with st.spinner(f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."):
+            with st.spinner(
+                f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
+            ):
                 images = generate_images(prompt, batch_size)
                 st.success("Images generated successfully!")
 
@@ -115,12 +111,11 @@ def main():
                     with col2:
                         if i + 1 < len(images):
                             st.image(images[i + 1], use_column_width=True)
-                            href = getDownloadHref(images[i+1])
+                            href = getDownloadHref(images[i + 1])
                             st.markdown(href, unsafe_allow_html=True)
         else:
             st.warning("Please enter a prompt.")
 
-    
 
 if __name__ == "__main__":
     main()
