@@ -8,36 +8,14 @@ import base64
 from PIL import Image
 import os
 from dotenv import load_dotenv
-from utils import streamlit_cleanup, getDownloadHref
+from utils import streamlit_cleanup, getDownloadHref, set_sidebar_contents
 
 load_dotenv()
 
 st.set_page_config(
-    page_title="Stable Diffusion - MEC",
+    page_title="MEC Diffusion",
     page_icon="✨",
 )
-
-
-def add_sidebar_content():
-    st.sidebar.markdown(
-        """
-    ### Tips for Better Images:
-    - Use descriptive prompts. Example: "Ship sailing through stormy seas with thunder and lightning. Realistic."
-    - Provide maximum details and descriptions in the prompt for better image generation.
-    - Generating more images at once may increase the processing time.
-    - Response times may vary during peak usage periods.
-    - Right-click an image and select "Save AS" to download it locally
-    - Please use this tool responsibly.
-    
-    For more information about stable diffusion-based image generation, visit [stable-diffusion-art.com](https://stable-diffusion-art.com/).
-    
-    #### Credits:
-    - [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui/) by AUTOMATIC1111
-    - [Titty Jacob](https://www.linkedin.com/in/titty-jacob-8795374/) for all the support
-    
-    Made with ❤️ for MEC by [Aldrin Jenson](https://www.linkedin.com/in/aldrinjenson/)
-    """
-    )
 
 
 def generate_images(prompt, batch_size):
@@ -51,36 +29,44 @@ def generate_images(prompt, batch_size):
         "batch_size": batch_size,
     }
 
-    response = requests.post(url=url, json=payload)
+    try:
+        response = requests.post(url=url, json=payload)
 
-    if response.status_code == 200:
-        data = response.json()
-        images = data.get("images", [])
-        decoded_images = []
+        if response.status_code == 200:
+            data = response.json()
+            images = data.get("images", [])
+            decoded_images = []
 
-        for image in images:
-            img_data = base64.b64decode(image)
-            img = Image.open(io.BytesIO(img_data))
-            decoded_images.append(img)
+            for image in images:
+                img_data = base64.b64decode(image)
+                img = Image.open(io.BytesIO(img_data))
+                decoded_images.append(img)
 
-        return decoded_images
-    else:
+            return decoded_images
+        else:
+            st.error("Failed to generate images.")
+
+    except requests.exceptions.RequestException as e:
+        st.error("Failed to generate images. Error: " + str(e))
+
+    except ValueError as e:
+        st.error("Failed to parse response. Error: " + str(e))
+
+    except:
         st.error("Failed to generate images.")
 
     return []
 
 
 def main():
-    st.sidebar.title("Instructions and Details")
-
-    add_sidebar_content()
+    set_sidebar_contents()
     streamlit_cleanup()
 
-    st.title("SD - Text to Image Generation")
+    st.title("MEC Diffusion - Text to Image Generation WebApp")
     st.write(
         "Web application that uses the technique of [Stable Diffusion](https://en.wikipedia.org/wiki/Stable_Diffusion) to generate images from descriptive text prompts. Hosted by [Govt. Model Engineering College](https://www.mec.ac.in/)."
     )
-    st.write("Click [here](/details) for instructions and more details.")
+    st.write("For instructions and more details, visit [this link](/Details).")
 
     col1, col2 = st.columns([5, 1])
     with col1:
@@ -93,7 +79,7 @@ def main():
 
     if st.button("Generate Images"):
         if not prompt:
-            prompt = "Little red riding hood. Ultra-realistic"
+            prompt = "Government model engineering college"
         if prompt:
             with st.spinner(
                 f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
