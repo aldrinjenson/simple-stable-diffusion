@@ -36,7 +36,9 @@ def generate_images(prompt, batch_size):
 
             return decoded_images
         else:
-            st.error("Failed to generate images.")
+            st.error(
+                "Failed to generate images. Server is not reachable at the moment."
+            )
 
     except requests.exceptions.RequestException as e:
         st.error(

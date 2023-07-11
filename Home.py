@@ -1,6 +1,5 @@
 import streamlit as st
-import requests
-from utils import streamlit_cleanup, set_sidebar_contents
+from st_utils import streamlit_cleanup, set_sidebar_contents
 from misc_utils import getDownloadHref
 from image_generator import generate_images
 
@@ -40,9 +39,9 @@ def main():
         with st.spinner(
             f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
         ):
+            notif = st.empty()
             images = generate_images(prompt, batch_size)
             if images:
-                st.success("Images generated successfully!")
                 for i in range(0, len(images), 2):
                     col1, col2 = st.columns(2)
                     with col1:
@@ -55,6 +54,7 @@ def main():
                             st.image(images[i + 1], use_column_width=True)
                             href = getDownloadHref(images[i + 1])
                             st.markdown(href, unsafe_allow_html=True)
+                notif.success("Images generated successfully!")
             else:
                 st.warning("Please try again after some time")
 

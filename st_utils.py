@@ -59,4 +59,3 @@ def set_sidebar_contents():
     - [Titty Jacob Sir](https://www.linkedin.com/in/titty-jacob-8795374/) for all the support
     """
     )
-    pass
