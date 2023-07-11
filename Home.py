@@ -1,61 +1,14 @@
 import streamlit as st
-import random
-import time
-import json
 import requests
-import io
-import base64
-from PIL import Image
-import os
-from dotenv import load_dotenv
-from utils import streamlit_cleanup, getDownloadHref, set_sidebar_contents
+from utils import streamlit_cleanup, set_sidebar_contents
+from misc_utils import getDownloadHref
+from image_generator import generate_images
 
-load_dotenv()
 
 st.set_page_config(
     page_title="MEC Diffusion",
     page_icon="✨",
 )
-
-
-def generate_images(prompt, batch_size):
-    url = os.getenv("API_URL")
-    negative_prompt = os.getenv("NEGATIVE_PROMPT")
-
-    payload = {
-        "prompt": prompt,
-        "steps": 20,
-        "negative_prompt": negative_prompt,
-        "batch_size": batch_size,
-    }
-
-    try:
-        response = requests.post(url=url, json=payload)
-
-        if response.status_code == 200:
-            data = response.json()
-            images = data.get("images", [])
-            decoded_images = []
-
-            for image in images:
-                img_data = base64.b64decode(image)
-                img = Image.open(io.BytesIO(img_data))
-                decoded_images.append(img)
-
-            return decoded_images
-        else:
-            st.error("Failed to generate images.")
-
-    except requests.exceptions.RequestException as e:
-        st.error("Failed to generate images. Error: " + str(e))
-
-    except ValueError as e:
-        st.error("Failed to parse response. Error: " + str(e))
-
-    except:
-        st.error("Failed to generate images.")
-
-    return []
 
 
 def main():
@@ -79,14 +32,17 @@ def main():
 
     if st.button("Generate Images"):
         if not prompt:
-            prompt = "Government model engineering college"
-        if prompt:
-            with st.spinner(
-                f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
-            ):
-                images = generate_images(prompt, batch_size)
-                st.success("Images generated successfully!")
+            prompt = "Little red riding hood, ultrarealistic"
+        if not prompt:
+            st.warning("Please enter a prompt.")
+            return
 
+        with st.spinner(
+            f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
+        ):
+            images = generate_images(prompt, batch_size)
+            if images:
+                st.success("Images generated successfully!")
                 for i in range(0, len(images), 2):
                     col1, col2 = st.columns(2)
                     with col1:
@@ -99,8 +55,8 @@ def main():
                             st.image(images[i + 1], use_column_width=True)
                             href = getDownloadHref(images[i + 1])
                             st.markdown(href, unsafe_allow_html=True)
-        else:
-            st.warning("Please enter a prompt.")
+            else:
+                st.warning("Please try again after some time")
 
 
 if __name__ == "__main__":

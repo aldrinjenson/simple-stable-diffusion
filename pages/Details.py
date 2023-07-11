@@ -17,7 +17,7 @@ st.markdown(
 
 
     ## Project Objective
-    The aim of MEC Diffusion is to make the incredible technology of Stable Diffusion accessible to a wider audience. Running Stable Diffusion locally typically requires a modern computer with substantial GPU capabilities. By hosting this web app on an NVIDIA Quadro GPU at Govt. Model Engineering College, Kochi, we provide users with an opportunity to explore Stable Diffusion for free. The user interface is intentionally designed to be simple and user-friendly by pre-configuring most hyperparameters for easy startup.
+    The aim of MEC Diffusion is to make the incredible technology of Stable Diffusion accessible to a wider audience. Running Stable Diffusion locally typically requires a modern computer with substantial GPU capabilities. By hosting this web app on an NVIDIA Quadro GPU at Govt. Model Engineering College, Kochi, we provide students with an opportunity to explore Stable Diffusion for free. The user interface is intentionally designed to be simple and user-friendly by pre-configuring most hyperparameters for easy startup.
 
     ## How does Stable Diffusion work? 
     Stable Diffusion is a technique used in machine learning to generate high-quality images from textual prompts. To learn more about Stable Diffusion, you can refer to the [wikipedia article](https://en.wikipedia.org/wiki/Stable_Diffusion).
@@ -35,11 +35,12 @@ st.markdown(
 
     ## Additional Information:
     - Please be aware that due to increased server load or network issues, image generation may occasionally take longer than usual.
+    - The seed value of generation is set as random to try differrent styles of images. This is done so that the same prompt can create images of differrent styles or genres.
     - For users seeking more control over the generation process, including the ability to adjust parameters like seed value, CFG scale value, sampling steps, and sampling method, we recommend trying the [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui/) version.
-    - We would like to emphasize that this is a powerful tool, and we urge users to utilize it responsibly.
+    - We would like to emphasize that this is a powerful tool, and we urge everyone to utilize it responsibly.
 
     ## Project Availability:
-    - MEC Diffusion will remain available as long as the GPU resources of the college are not required for other purposes. In cases where the resources need to be reallocated, users may experience temporary downtime.
+    - MEC Diffusion will remain available as long as the GPU resources of the college are not required for other purposes. In cases where the resources need to be reallocated, users may experience downtime. Usually if you face errors while generating, it would be a good idea to try again after a while.
 
     ## Project Authorship:
     - MEC Diffusion was developed by Aldrin Jenson, a student from the 2019 batch of Model Engineering College.
