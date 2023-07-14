@@ -30,9 +30,7 @@ def generate_images(prompt, batch_size):
             decoded_images = []
 
             for image in images:
-                img_data = base64.b64decode(image)
-                img = Image.open(io.BytesIO(img_data))
-                decoded_images.append(img)
+                decoded_images.append("data:image/jpeg;base64," + image)
 
             return decoded_images
         else:
