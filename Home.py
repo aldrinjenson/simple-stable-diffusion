@@ -29,7 +29,7 @@ def main():
     with col2:
         batch_size = st.selectbox("Number of Images", [1, 2, 3, 4], index=1)
 
-    if st.button("Generate Images"):
+    if st.button("Generate Images", type="primary"):
         if not prompt:
             prompt = "Little red riding hood, ultrarealistic"
         if not prompt:
