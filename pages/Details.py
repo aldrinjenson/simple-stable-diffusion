@@ -57,7 +57,7 @@ st.markdown(
     ## Credits:
     - [Stability-AI/StableDiffusion](https://github.com/Stability-AI/StableDiffusion)
     - [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui/) by AUTOMATIC1111
-    - Special thanks to [Titty Jacob Sir](https://www.linkedin.com/in/titty-jacob-8795374/) for the invaluable support provided throughout the development process.
+    - Special thanks to the [Computer Science Department of Govt. Model Engineering College](https://cs.mec.ac.in) for all the invaluable support provided throughout the development process.
 
     We kindly request everyone to use this tool responsibly.
     """

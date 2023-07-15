@@ -56,6 +56,6 @@ def set_sidebar_contents():
     ## Credits:
     - [Stability-AI/StableDiffusion](https://github.com/Stability-AI/StableDiffusion) 
     - [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui/) by AUTOMATIC1111
-    - [Titty Jacob Sir](https://www.linkedin.com/in/titty-jacob-8795374/) for all the support
+    - [MEC - CS Department](https://cs.mec.ac.in/) for all the support
     """
     )
