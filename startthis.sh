@@ -7,4 +7,5 @@ if ! ss -ln | grep -q ':7860'; then
 fi
 
 
+docker compose down
 docker compose up --build -d
