@@ -4,8 +4,6 @@ A minimalist and opinionated web user interface (UI) for image generation using 
 
 ![Demo](./misc/demo.png)
 
-[Demo Video](./misc/simple-stable-diffusion-demo.mp4)
-
 ## Features
 
 - Image generation using Stable Diffusion.
@@ -55,7 +53,11 @@ streamlit run Home.py
 
 The app will be running locally at http://localhost:8501. Open the URL in your web browser to access the Simple-Stable-Diffusion-UI.
 
+## Demo
+
+![Demo Video](./misc/demo.gif)
+
 ## Credits
 
-- Stability-AI/StableDiffusion - The Stable Diffusion technology used as the backend.
-- AUTOMATIC1111 - Original developer of the Stable Diffusion WebUI.
+- [Stability-AI/StableDiffusion](https://github.com/Stability-AI/StableDiffusion)
+- [Stable Diffusion WebUI](https://github.com/AUTOMATIC1111/stable-diffusion-webui/) by AUTOMATIC1111
