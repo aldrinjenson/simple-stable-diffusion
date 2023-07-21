@@ -6,7 +6,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # for adding custom metatags 
-COPY index.html /usr/local/lib/python3.9/site-packages/streamlit/static/index.html
+COPY src/index.html /usr/local/lib/python3.9/site-packages/streamlit/static/index.html
 COPY . .
 
 CMD ["streamlit", "run", "Home.py", "--server.headless", "true", "--server.fileWatcherType", "none", "--browser.gatherUsageStats=False"]
