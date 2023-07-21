@@ -1,6 +1,6 @@
 import streamlit as st
 from st_utils import streamlit_cleanup, set_sidebar_contents
-from misc_utils import getDownloadHref
+from misc_utils import getDownloadHref, getRandomQuote
 from image_generator import generate_images
 
 
@@ -20,6 +20,8 @@ def main():
     )
     st.write("For instructions and more details, visit [this link](/Details).")
 
+    randomQuote = getRandomQuote()
+
     col1, col2 = st.columns([5, 1])
     with col1:
         prompt = st.text_input(
@@ -37,7 +39,7 @@ def main():
             return
 
         with st.spinner(
-            f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}..."
+            f"Generating {batch_size} {'image' if batch_size == 1 else 'images'}...\n\n {randomQuote}"
         ):
             notif = st.empty()
             images = generate_images(prompt, batch_size)
