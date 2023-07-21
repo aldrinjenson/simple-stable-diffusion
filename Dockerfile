@@ -5,6 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# for adding custom metatags 
 COPY index.html /usr/local/lib/python3.9/site-packages/streamlit/static/index.html
 COPY . .
 

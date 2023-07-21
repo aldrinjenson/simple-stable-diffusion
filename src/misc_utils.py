@@ -13,7 +13,7 @@ def getDownloadHref(base64_image_url):
 
 
 quotes = []
-file_path = "quotes-1000.json"
+file_path = "src/quotes-1000.json"
 with open(file_path, "r") as file:
     print("opening quotes")
     quotes = json.load(file)

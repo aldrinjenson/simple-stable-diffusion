@@ -1,5 +1,5 @@
 import streamlit as st
-from st_utils import remove_streamlit_footer, set_sidebar_contents
+from src.st_utils import remove_streamlit_footer, set_sidebar_contents
 
 st.set_page_config(
     page_title="MEC Diffusion | About",

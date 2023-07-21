@@ -1,7 +1,7 @@
 import streamlit as st
-from st_utils import streamlit_cleanup, set_sidebar_contents
-from misc_utils import getDownloadHref, getRandomQuote
-from image_generator import generate_images
+from src.st_utils import streamlit_cleanup, set_sidebar_contents
+from src.misc_utils import getDownloadHref, getRandomQuote
+from src.image_generator import generate_images
 
 
 st.set_page_config(
@@ -20,8 +20,6 @@ def main():
     )
     st.write("For instructions and more details, visit [this link](/Details).")
 
-    randomQuote = getRandomQuote()
-
     col1, col2 = st.columns([5, 1])
     with col1:
         prompt = st.text_input(
@@ -31,6 +29,7 @@ def main():
     with col2:
         batch_size = st.selectbox("Number of Images", [1, 2, 3, 4], index=1)
 
+    randomQuote = getRandomQuote()
     if st.button("Generate Images", type="primary"):
         if not prompt:
             prompt = "Little red riding hood, ultrarealistic"
